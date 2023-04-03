@@ -29,6 +29,9 @@ class HelloController extends Controller
     {
         echo $message . "\n";
 
+        $apcuAvailabe = function_exists('apcu_enabled') && apcu_enabled();
+        echo "ACPU: " . ($apcuAvailabe ? "YES" : "NO") . "\n";
+
         return ExitCode::OK;
     }
 }
