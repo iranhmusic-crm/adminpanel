@@ -72,6 +72,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => '/f
             // ) . '</li>',
             ['label' => Yii::$app->user->identity->usrEmail ?? (Yii::$app->user->identity->usrMobile ?? '')],
             '<hr class="dropdown-divider">',
+            ['label' => Yii::t('aaa', 'Financial'), 'url' => ['/aaa/fin']],
             ['label' => Yii::t('aaa', 'My Profile'), 'url' => ['/aaa/profile']],
             '<hr class="dropdown-divider">',
             ['label' => Yii::t('aaa', 'Logout'), 'url' => ['/aaa/auth/logout']],
@@ -130,15 +131,6 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => '/f
             ],
           ],
           [
-            'label' => Yii::t('aaa', 'Financial'),
-            // 'icon' => 'badge-dollar',
-            'items' => [
-              // ['label' => Yii::t('aaa', 'Payment gateways'), 'icon' => 'info-sign', 'url' => ['/aaa/payment-gateway/index']],
-              ['label' => Yii::t('aaa', 'Online Payments'), 'icon' => 'info-sign', 'url' => ['/aaa/online-payment']],
-              ['label' => Yii::t('aaa', 'Offline Payments'), 'icon' => 'info-sign', 'url' => ['/aaa/offline-payment']],
-            ],
-          ],
-          [
             'label' => Yii::t('mha', 'Music House'),
             // 'icon' => 'music',
             'items' => [
@@ -167,6 +159,16 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => '/f
                   ['label' => Yii::t('mha', 'Kanoons'), 'icon' => 'info-sign', 'url' => ['/mha/kanoon']],
                 ],
               ],
+            ],
+          ],
+          [
+            'label' => Yii::t('aaa', 'Financial'),
+            // 'icon' => 'badge-dollar',
+            'items' => [
+              // ['label' => Yii::t('aaa', 'Payment gateways'), 'icon' => 'info-sign', 'url' => ['/aaa/payment-gateway/index']],
+              ['label' => Yii::t('aaa', 'Vouchers'), 'icon' => 'info-sign', 'url' => ['/aaa/voucher/index']],
+              ['label' => Yii::t('aaa', 'Online Payments'), 'icon' => 'info-sign', 'url' => ['/aaa/online-payment']],
+              ['label' => Yii::t('aaa', 'Offline Payments'), 'icon' => 'info-sign', 'url' => ['/aaa/offline-payment']],
             ],
           ],
         ],
