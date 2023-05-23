@@ -72,8 +72,8 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => '/f
             // ) . '</li>',
             ['label' => Yii::$app->user->identity->usrEmail ?? (Yii::$app->user->identity->usrMobile ?? '')],
             '<hr class="dropdown-divider">',
-            ['label' => Yii::t('aaa', 'Financial'), 'url' => ['/aaa/fin']],
             ['label' => Yii::t('aaa', 'My Profile'), 'url' => ['/aaa/profile']],
+            // ['label' => Yii::t('aaa', 'Financial'), 'url' => ['/aaa/fin']],
             '<hr class="dropdown-divider">',
             ['label' => Yii::t('aaa', 'Logout'), 'url' => ['/aaa/auth/logout']],
           ],
@@ -83,7 +83,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => '/f
       echo Nav::widget([
         'options' => ['class' => 'navbar-nav w-100'],
         'items' => [
-          // ['label' => 'Home', 'url' => ['/site/index']],
+          // ['label' => 'Home', 'url' => ['/site']],
           $userMenuItems,
         ]
       ]);
@@ -93,6 +93,12 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => '/f
 
   <side class="sidebar">
     <?php
+      $userInfos = [];
+      if (empty(Yii::$app->user->identity->usrEmail) == false)
+        $userInfos[] = Yii::$app->user->identity->usrEmail;
+      if (empty(Yii::$app->user->identity->usrMobile) == false)
+        $userInfos[] = Yii::$app->user->identity->usrMobile;
+
       echo SideNav::widget([
         'type' => SideNav::TYPE_SECONDARY,
         // 'heading' => 'Options',
@@ -109,6 +115,10 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => '/f
         'hideEmptyItems' => false,
 
         'items' => [
+          [
+            'label' => "<div class='text-center dir-ltr'>" . implode('<br>', $userInfos) . "<hr class='sidemenu-divider'></div>",
+            'encode' => false,
+          ],
           [
             'label' => Yii::t('app', 'Desktop'),
             'icon' => 'home',
@@ -127,7 +137,14 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => '/f
               ],
               ['label' => Yii::t('aaa', 'Users'), 'icon' => 'info-sign', 'url' => ['/aaa/user']],
               ['label' => Yii::t('aaa', 'Gateways'), 'icon' => 'info-sign', 'url' => ['/aaa/gateway']],
-              ['label' => Yii::t('app', 'Files'), 'icon' => 'info-sign', 'url' => ['/aaa/files']],
+              ['label' => Yii::t('app', 'Files'), 'icon' => 'info-sign', 'url' => ['/aaa/upload-file']],
+              [
+                'label' => Yii::t('aaa', 'Messages'),
+                'items' => [
+                  ['label' => Yii::t('aaa', 'Messages'), 'icon' => 'info-sign', 'url' => ['/aaa/message']],
+                  ['label' => Yii::t('aaa', 'Message Templates'), 'icon' => 'info-sign', 'url' => ['/aaa/message-template']],
+                ],
+              ],
             ],
           ],
           [
@@ -136,9 +153,22 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => '/f
             'items' => [
               ['label' => Yii::t('mha', 'Members'), 'icon' => 'info-sign', 'url' => ['/mha/member']],
               ['label' => Yii::t('mha', 'Documents'), 'icon' => 'info-sign', 'url' => ['/mha/member-document']],
-              ['label' => Yii::t('mha', 'Memberships'), 'icon' => 'info-sign', 'url' => ['/mha/member-membership']],
-              ['label' => Yii::t('mha', 'Kanoon Members'), 'icon' => 'info-sign', 'url' => ['/mha/member-kanoon']],
-
+              [
+                'label' => Yii::t('mha', 'Memberships'),
+                'icon' => 'info-sign',
+                'items' => [
+                  ['label' => Yii::t('mha', 'Memberships Definitions'), 'icon' => 'info-sign', 'url' => ['/mha/membership']],
+                  ['label' => Yii::t('mha', 'Members Memberships'), 'icon' => 'info-sign', 'url' => ['/mha/member-membership']],
+                ],
+              ],
+              [
+                'label' => Yii::t('mha', 'Kanoons'),
+                'icon' => 'info-sign',
+                'items' => [
+                  ['label' => Yii::t('mha', 'Kanoons'), 'icon' => 'info-sign', 'url' => ['/mha/kanoon']],
+                  ['label' => Yii::t('mha', 'Kanoon Members'), 'icon' => 'info-sign', 'url' => ['/mha/member-kanoon']],
+                ],
+              ],
               [
                 'label' => Yii::t('mha', 'Insurance'),
                 // 'icon' => 'music',
@@ -155,8 +185,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => '/f
                   ['label' => Yii::t('mha', 'Supplementary Insurers'), 'icon' => 'info-sign', 'url' => ['/mha/supplementary-insurer']],
                   ['label' => Yii::t('mha', 'Specialties'), 'icon' => 'info-sign', 'url' => ['/mha/specialty']],
                   ['label' => Yii::t('mha', 'Documents'), 'icon' => 'info-sign', 'url' => ['/mha/document']],
-                  ['label' => Yii::t('mha', 'Memberships'), 'icon' => 'info-sign', 'url' => ['/mha/membership']],
-                  ['label' => Yii::t('mha', 'Kanoons'), 'icon' => 'info-sign', 'url' => ['/mha/kanoon']],
+                  ['label' => Yii::t('mha', 'Basic Definitions'), 'icon' => 'info-sign', 'url' => ['/mha/basic-definition']],
                 ],
               ],
             ],
@@ -165,10 +194,14 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => '/f
             'label' => Yii::t('aaa', 'Financial'),
             // 'icon' => 'badge-dollar',
             'items' => [
-              // ['label' => Yii::t('aaa', 'Payment gateways'), 'icon' => 'info-sign', 'url' => ['/aaa/payment-gateway/index']],
-              ['label' => Yii::t('aaa', 'Vouchers'), 'icon' => 'info-sign', 'url' => ['/aaa/voucher/index']],
+              // ['label' => Yii::t('aaa', 'Wallets'), 'icon' => 'info-sign', 'url' => ['/aaa/wallet']],
+              // ['label' => Yii::t('aaa', 'Wallet Transactions'), 'icon' => 'info-sign', 'url' => ['/aaa/wallet-transaction']],
+              // ['label' => Yii::t('aaa', 'Payment gateways'), 'icon' => 'info-sign', 'url' => ['/aaa/payment-gateway']],
+              // ['label' => Yii::t('aaa', 'Vouchers'), 'icon' => 'info-sign', 'url' => ['/aaa/voucher']],
+              ['label' => Yii::t('aaa', 'Baskets'), 'icon' => 'info-sign', 'url' => ['/aaa/basket']],
+              ['label' => Yii::t('aaa', 'Orders'), 'icon' => 'info-sign', 'url' => ['/aaa/order']],
               ['label' => Yii::t('aaa', 'Online Payments'), 'icon' => 'info-sign', 'url' => ['/aaa/online-payment']],
-              ['label' => Yii::t('aaa', 'Offline Payments'), 'icon' => 'info-sign', 'url' => ['/aaa/offline-payment']],
+              // ['label' => Yii::t('aaa', 'Offline Payments'), 'icon' => 'info-sign', 'url' => ['/aaa/offline-payment']],
             ],
           ],
         ],
@@ -179,7 +212,10 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => '/f
   <main id="layout-main" class="content h-min-100" role="main" style="position: relative;">
     <div class="container">
       <?php if (!empty($this->params['breadcrumbs'])): ?>
-        <?= Breadcrumbs::widget(['links' => $this->params['breadcrumbs']]) ?>
+        <?= Breadcrumbs::widget([
+          'links' => $this->params['breadcrumbs'],
+          'encodeLabels' => false,
+        ]) ?>
       <?php endif ?>
       <?= Alert::widget() ?>
       <?= $content ?>

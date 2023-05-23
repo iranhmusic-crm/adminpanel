@@ -4,6 +4,7 @@ $params = require __DIR__ . '/params.php';
 // $db = require __DIR__ . '/db.php';
 
 $config = [
+	'isJustForMe' => false,
 	'id' => 'adminpanel',
 	'basePath' => dirname(__DIR__),
 	'bootstrap' => ['log'],
